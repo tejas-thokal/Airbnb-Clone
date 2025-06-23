@@ -3,6 +3,7 @@
     margin: 0;
     box-sizing: border-box;
     font-family: "Poppins";
+    text-decoration: none;
 }
 
 .Navbar{
@@ -86,33 +87,53 @@
     gap: 4em;
 }
 
-.search{
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: #ff385c;
-    padding: 1em 1.2em;
-    color: white;
-    transition: background-color 0.3s ease;
-    border-radius: 80%;
-    overflow: hidden;
-    transition: background-color 0.3s ease;
+/* .who container stays as-is */
+.who {
+  border-top-right-radius: 2em;
+  border-bottom-right-radius: 2em;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  position: relative;
 }
 
-
-.search:hover{
-    background-color: #bd2944;
-    width: auto;
-    border-radius: 18px;
+/* Search Button Styles */
+.search {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #ff385c;
+  padding: 0.8em;
+  color: white;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  width: 3em; /* icon-only size */
+  flex-shrink: 0; /* ❗ don't allow shrinking */
 }
 
+/* Hover: expand width, change radius */
+.search:hover {
+  width: 8em;
+  border-radius: 2em;
+  padding: 0.8em 1.5em;
+}
+
+/* Text inside Search Button */
 .search p {
   max-width: 0;
   opacity: 0;
   overflow: hidden;
   white-space: nowrap;
-  transition: max-width 0.4s ease, opacity 0.3s ease;
+  transition: max-width 0.4s ease, opacity 0.4s ease;
 }
+
+/* Show text on hover */
+.search:hover p {
+  max-width: 100px;
+  opacity: 1;
+}
+
 
 /* Hover effect */
 .search:hover p {
@@ -184,10 +205,14 @@
   overflow-y:scroll;
 }
 
-.small-overlay2 {
+.menu {
   position: absolute;
-  top: 50%;
+  top: 70%;
   right: 0;
+  overflow-y: scroll;
+  height: 70vh;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: hidden;
   /* background: white;
   padding: 1em;
   border: 1px solid #ddd;
@@ -216,7 +241,7 @@
 .menu {
   position: absolute;
   right: 0;
-  top: 40px;
+  top: 60px;
   width: 260px;
   background-color: white;
   border-radius: 16px;
@@ -239,6 +264,7 @@
   justify-content: flex-start;
   gap:2em;
   align-items: center;
+  color: black;
 }
 
 .menu li:hover {
@@ -329,3 +355,117 @@
     background-color: gainsboro;
     border-radius: 10px;
 }
+
+/* --- Mobile Pill Search Bar & Modal --- */
+@media (max-width: 768px) {
+  .logo,
+  .login {
+    display: none !important;
+  }
+  .Navbar {
+    padding: 0.5em 0.5em;
+    height: 4em;
+    justify-content: center;
+  }
+  .middle {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+  }
+  .mobile-search-pill-wrapper {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4em;
+    background: white;
+  }
+  .mobile-search-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 2em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 0.7em 1.5em;
+    font-size: 1.1em;
+    color: #222;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+  }
+  .mobile-search-pill:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+  .mobile-search-pill-text {
+    font-weight: 500;
+    font-size: 1.1em;
+  }
+  /* Modal overlay */
+  .mobile-search-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 1.5em 1em 1em 1em;
+  }
+  .close-mobile-modal {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+    cursor: pointer;
+    color: #222;
+  }
+  .mobile-modal-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+    margin-top: 1em;
+  }
+  .mobile-modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+  .mobile-modal-field label {
+    font-size: 1em;
+    font-weight: 500;
+    margin-bottom: 0.2em;
+    color: #222;
+  }
+  .mobile-modal-input {
+    padding: 0.9em 1em;
+    border-radius: 1em;
+    border: 1px solid #eee;
+    font-size: 1em;
+    background: #fafafa;
+    outline: none;
+  }
+  .mobile-modal-search-btn {
+    width: 100%;
+    background: #ff385c;
+    color: #fff;
+    border: none;
+    border-radius: 2em;
+    padding: 1.1em;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 2em;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(255,56,92,0.08);
+    transition: background 0.2s;
+  }
+  .mobile-modal-search-btn:hover {
+    background: #e41e52;
+  }
+}
+

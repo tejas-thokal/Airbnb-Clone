@@ -70,3 +70,12 @@
 .footer-right i {
   font-size: 16px;
 }
+
+@media (max-width:480px) {
+  .footer-top{
+    width: 100vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
