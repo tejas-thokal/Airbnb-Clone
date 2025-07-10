@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Wishlist.css";
-import MapView from "./MapView";
 
 export default function WishlistDetail() {
   const { id } = useParams();

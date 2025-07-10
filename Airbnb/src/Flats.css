@@ -63,3 +63,33 @@
   font-size: 14px;
   margin-top: 4px;
 }
+
+.flat-image-wrapper {
+  position: relative;
+}
+
+.guest-fav-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #f8f6ef;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 400;
+  z-index: 1;
+  color:rgb(54, 54, 54);
+}
+
+.heart-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  color: #fff;
+  background: rgba(0,0,0,0.5);
+  padding: 4px 6px;
+  border-radius: 50%;
+  z-index: 1;
+}
+

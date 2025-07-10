@@ -1,11 +1,15 @@
 import "./Flats.css"
 import { Link } from "react-router-dom";
 
+const filters = JSON.parse(localStorage.getItem("bookingFilters")) || {};
+const { checkInDate, checkOutDate, guests } = filters;
+
 export const puneFlats = [
   {
     id: 1,
-    location: "Gahunje",
+    location: "Gahunje, Pune",
     title: "Sunset Serenity Stay",
+    isGuestFavourite: true,
     lat: 18.6586,
     lng: 73.7296,
     price: "₹5,692",
@@ -31,8 +35,9 @@ export const puneFlats = [
     id: 2,
     location: "Pune",
     title: "Colonial Charm Escape",
-    lat: 18.5204,
-    lng: 73.8567,
+    isGuestFavourite: true,
+    lat: 18.6221,
+    lng: 73.8037,
     price: "₹4,108",
     rating: "5.0",
     imgUrl: "https://img.freepik.com/free-photo/colonial-style-house-night-scene_1150-17925.jpg",
@@ -56,8 +61,9 @@ export const puneFlats = [
     id: 3,
     location: "Pune",
     title: "Luxury Lounge Villa",
-    lat: 18.5204,
-    lng: 73.8567,
+    isGuestFavourite: true,
+    lat: 18.5095,
+    lng: 73.8077,
     price: "₹5,240",
     rating: "4.94",
     imgUrl: "https://img.freepik.com/free-photo/bangkok-thailand-august-12-2016-beautiful-luxury-living-room_1203-2721.jpg",
@@ -104,10 +110,11 @@ export const puneFlats = [
   },
   {
     id: 5,
-    location: "Kathraj",
+    location: "Kathraj, Pune",
     title: "Aqua Haven Retreat",
-    lat: 18.4300,
-    lng: 73.8688,
+    isGuestFavourite: true,
+    lat: 18.4498,
+    lng: 73.8683,
     price: "₹3,983",
     rating: "5.0",
     imgUrl: "https://img.freepik.com/free-photo/luxury-water-swimming-resort-hotel_1203-4648.jpg",
@@ -129,10 +136,11 @@ export const puneFlats = [
   },
   {
     id: 6,
-    location: "Gahunje",
+    location: "Gahunje, Pune",
     title: "Modern Zen Living",
-    lat: 18.6586,
-    lng: 73.7296,
+    isGuestFavourite: true,
+    lat: 18.5590,
+    lng: 73.7890,
     price: "₹5,236",
     rating: "4.83",
     imgUrl: "https://img.freepik.com/free-photo/3d-rendering-contemporary-modern-dining-room-living-room-with-luxury-decor_105762-2245.jpg",
@@ -160,20 +168,33 @@ export default function Flats(){
         <div className="slider-container">
         <h2>Popular homes in Pune</h2>
         <div className="slider">
-            {puneFlats.map((flat) => (
-            <div key={flat.id} className="flat-card">
-                <Link to={`Property/${flat.id}`} state={flat}>
-                <img src={flat.imgUrl} alt={flat.location} />
-                <div className="flat-info">
-                <p className="location">Flat in {flat.location}</p>
-                <p className="price">{flat.price} for 2 nights • ★ {flat.rating}</p>
-                </div>
+          {puneFlats.map((flat) => (
+              <div key={flat.id} className="flat-card">
+                <Link to={`Property/${flat.id}`} state={{
+                    ...flat,
+                    checkInDate,
+                    checkOutDate,
+                    guests: guests && typeof guests === "object" && Object.values(guests).length > 0
+                      ? Object.values(guests).reduce((a, b) => a + b, 0)
+                      : 1,
+                  }}>
+                  <div className="flat-image-wrapper">
+                    <img src={flat.imgUrl} alt={flat.location} />
+                    {flat.isGuestFavourite && (
+                      <>
+                        <div className="guest-fav-label">Guest favourite</div>
+                      </>
+                    )}
+                  </div>
+                  <div className="flat-info">
+                    <p className="location">Flat in {flat.location}</p>
+                    <p className="price">{flat.price} for 2 nights • ★ {flat.rating}</p>
+                  </div>
                 </Link>
-            </div>
+              </div>
             ))}
         </div>
         </div>
-
         </>
     )
 }

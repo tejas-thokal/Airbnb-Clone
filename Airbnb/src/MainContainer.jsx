@@ -4,8 +4,10 @@ export default function MainContainer(){
     return(
         <>
         <div className="main-container" style={{paddingTop:"5em"}}>
-            <Flats></Flats>
-            <Mumbai></Mumbai>
+            <Flats/>
+            <Mumbai/>
+            <Flats/>
+            <Mumbai/>
         </div>
         </>
     )

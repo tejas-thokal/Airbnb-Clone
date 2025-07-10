@@ -11,9 +11,8 @@ export default function Home({user, setUser}) {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const [phone, setPhone] = useState("");
-//   const [userFirstName, setUserFirstName] = useState("");
-const userFirstName = user?.firstName || "";
-const isLoggedIn = !!userFirstName;
+  const userFirstName = user?.firstName || "";
+  const isLoggedIn = !!userFirstName;
 
 
   const handleCloseLogin = () => setShowLogin(false);

@@ -97,6 +97,35 @@
   position: relative;
 }
 
+.small-overlay {
+  position: absolute;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.small-overlay::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.input-date {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+.input-date:focus {
+  border-color: #ff385c;
+  box-shadow: 0 0 0 2px rgba(255, 56, 92, 0.2);
+}
+
+
 /* Search Button Styles */
 .search {
   display: inline-flex;

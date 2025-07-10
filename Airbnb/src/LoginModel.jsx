@@ -5,6 +5,18 @@ export default function LoginModel({ onClose,  onContinue  }) {
   const [phoneNumber, setPhoneNumber] = useState('');
 
   const handleSubmit = async () => {
+
+    if(phoneNumber.length !=10){
+      alert("Please enter a Valid Phone Number");
+      return;
+    }
+
+    const firstDigit = phoneNumber.charAt(0);
+    if(!["6","7","8","9"].includes(firstDigit)){
+      alert("Please enter a Valid Phone Number");
+      return;
+    }
+
   try {
     const response = await fetch("http://localhost:5000/register", {
       method: "POST",

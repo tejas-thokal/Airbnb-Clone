@@ -1,12 +1,26 @@
 import "./Navbar.css"
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
+import GuestSelector from "./GuestSelector";
+import places from "./places";
 
 import { useState } from "react";
 
 export default function Navbar({ onLoginClick, isLoggedIn, userFirstName, setUser }){
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [showMobileSearchModal, setShowMobileSearchModal] = useState(false);
+    const [destination, setDestination] = useState('');
+    const [checkInDate,setCheckInDate] = useState('');
+    const [checkOutDate,setCheckOutDate] = useState('');
+    const [guests, setGuests] = useState({
+        adults: 0,
+        children: 0,
+        infants: 0,
+        pets: 0,
+      });      
+
+    const checkInDay = checkInDate ? checkInDate.split("-")[2]:"";
+    const checkOutDay = checkOutDate ? checkOutDate.split("-")[2]:"";
 
     useEffect(() => {
     const handleResize = () => {
@@ -17,17 +31,9 @@ export default function Navbar({ onLoginClick, isLoggedIn, userFirstName, setUse
     }, []);
 
     const [activeOverlay, setActiveOverlay] = useState(null); 
-
-    // const isLoggedIn = false; // change this to true if user is logged in
-
-    // const checkInRef = useRef(null);
     const handleOverlay = (type) => {
         setActiveOverlay(type);
     };
-
-    // const handleOverlayClose = () => {
-    //     setActiveOverlay(null);
-    // };
 
     const whereRef = useRef(null);
     const checkInRef = useRef(null);
@@ -63,28 +69,6 @@ export default function Navbar({ onLoginClick, isLoggedIn, userFirstName, setUse
 
 
 
-    const places = [
-  { city: "Mumbai", state: "Maharashtra", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-2/original/58e934fa-33ed-4caf-800e-7e268bb0d3c7.png" },
-  { city: "Delhi", state: "Delhi", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/06f0f050-c167-4d1e-89e1-2775be94f82a.png" },
-  { city: "Bengaluru", state: "Karnataka", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/f0853d5a-1090-43b3-8207-3417a81e0332.png" },
-  { city: "Chennai", state: "Tamil Nadu", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-2/original/58e934fa-33ed-4caf-800e-7e268bb0d3c7.png" },
-  { city: "Kolkata", state: "West Bengal", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/06f0f050-c167-4d1e-89e1-2775be94f82a.png" },
-  { city: "Hyderabad", state: "Telangana", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/f0853d5a-1090-43b3-8207-3417a81e0332.png" },
-  { city: "Pune", state: "Maharashtra", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-2/original/58e934fa-33ed-4caf-800e-7e268bb0d3c7.png" },
-  { city: "Jaipur", state: "Rajasthan", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/06f0f050-c167-4d1e-89e1-2775be94f82a.png" },
-  { city: "Ahmedabad", state: "Gujarat", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/f0853d5a-1090-43b3-8207-3417a81e0332.png" },
-  { city: "Goa", state: "Goa", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-2/original/58e934fa-33ed-4caf-800e-7e268bb0d3c7.png" },
-  { city: "Shimla", state: "Himachal Pradesh", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/06f0f050-c167-4d1e-89e1-2775be94f82a.png" },
-  { city: "Manali", state: "Himachal Pradesh", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/f0853d5a-1090-43b3-8207-3417a81e0332.png" },
-  { city: "Udaipur", state: "Rajasthan", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-2/original/58e934fa-33ed-4caf-800e-7e268bb0d3c7.png" },
-  { city: "Varanasi", state: "Uttar Pradesh", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/06f0f050-c167-4d1e-89e1-2775be94f82a.png" },
-  { city: "Rishikesh", state: "Uttarakhand", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/f0853d5a-1090-43b3-8207-3417a81e0332.png" },
-  { city: "Darjeeling", state: "West Bengal", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-2/original/58e934fa-33ed-4caf-800e-7e268bb0d3c7.png" },
-  { city: "Ooty", state: "Tamil Nadu", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/06f0f050-c167-4d1e-89e1-2775be94f82a.png" },
-  { city: "Mysore", state: "Karnataka", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/f0853d5a-1090-43b3-8207-3417a81e0332.png" },
-  { city: "Srinagar", state: "Jammu and Kashmir", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-2/original/58e934fa-33ed-4caf-800e-7e268bb0d3c7.png" },
-  { city: "Leh", state: "Ladakh", imgUrl: "https://a0.muscache.com/im/pictures/airbnb-platform-assets/AirbnbPlatformAssets-hawaii-autosuggest-destination-icons-1/original/06f0f050-c167-4d1e-89e1-2775be94f82a.png" }
-];
 
 const handleLogout = () => {
   localStorage.removeItem("user"); // ✅ Clear local storage
@@ -92,6 +76,33 @@ const handleLogout = () => {
     setUser(null); // ✅ Clear React state
   }
   setActiveOverlay(null); // ✅ Optionally close menu
+};
+
+const navigate = useNavigate();
+
+const handleSearch = () => {
+  const totalGuests = Object.values(guests).reduce((a, b) => a + b, 0);
+
+  if (!destination || !checkInDate || !checkOutDate || totalGuests === 0) {
+    alert("Please fill in all search fields.");
+    return;
+  }
+
+  const params = new URLSearchParams({
+    destination,
+    checkIn: checkInDate,
+    checkOut: checkOutDate,
+    guests: totalGuests,
+  });
+
+  navigate(`/search?${params.toString()}`);
+
+  localStorage.setItem("bookingFilters", JSON.stringify({
+    checkInDate,
+    checkOutDate,
+    guests: Object.values(guests).reduce((a, b) => a + b, 0)
+  }));
+  
 };
 
     return(
@@ -109,11 +120,11 @@ const handleLogout = () => {
                     <div className="middle">
                         <div className="quickLinks">
                             <div className="child where" onClick={() => handleOverlay("where")}> 
-                                <p><span>where</span><br />Search Destinations</p>
+                                    <p><span>where</span><br />{destination ? <span style={{fontWeight:700, color:"black"}}>{destination}</span>: "Search Destinations"}</p>
                                 {activeOverlay === "where" && (
                                     <div className="small-overlay" ref={whereRef}>
                                         {places.map((place, index) => (
-                                            <div key={index} className="place-option">
+                                            <div key={index} className="place-option" onClick={() => setDestination(place.city)}>
                                                 <img src={place.imgUrl} alt="" />
                                                 {place.city}, {place.state}
                                             </div>
@@ -122,64 +133,47 @@ const handleLogout = () => {
                                 )}
                             </div>
                             <div className="child check-in" onClick={() => handleOverlay("check-in")}> 
-                                <p><span>check in</span><br />Add Dates</p>
+                                <p><span>check in</span><br />{checkInDate? <span style={{fontWeight:700, color:"black"}}>{checkInDay}</span>: "Add Dates"}</p>
                                 {activeOverlay === "check-in" && (
-                                    <div className="small-overlay" ref={checkInRef}>
-                                        <h3>Select Check-In Date</h3>
-                                        <div className="calendar-options">
-                                            <div className="option">
-                                                <label>Month:</label>
-                                                <select>
-                                                    <option>January</option>
-                                                    <option>February</option>
-                                                    <option>March</option>
-                                                    <option>April</option>
-                                                    <option>May</option>
-                                                    <option>June</option>
-                                                    <option>July</option>
-                                                    <option>August</option>
-                                                    <option>September</option>
-                                                    <option>October</option>
-                                                    <option>November</option>
-                                                    <option>December</option>
-                                                </select>
-                                            </div>
-                                            <div className="option">
-                                                <label>Year:</label>
-                                                <select>
-                                                    <option>2025</option>
-                                                    <option>2024</option>
-                                                    <option>2023</option>
-                                                </select>
-                                            </div>
-                                            <div className="option">
-                                                <label>Flexible?</label>
-                                                <input type="checkbox" />
-                                            </div>
-                                        </div>
-                                        <div className="calendar-grid">
-                                            <p>[ Calendar grid will go here ]</p>
-                                        </div>
+                                    <div className="small-overlay" style={{height:"auto"}} ref={checkInRef}>
+                                    <input
+                                        type="date"
+                                        placeholder="Enter Check-in Date"
+                                        name="check-in"
+                                        className="input-date"
+                                        onChange={(e)=> setCheckInDate(e.target.value)}
+                                    />
                                     </div>
                                 )}
                             </div>
                             <div className="child check-out" onClick={() => handleOverlay("check-out")}> 
-                                <p><span>check out</span><br />Add Dates</p>
+                                <p><span>check out</span><br />{checkOutDate? <span style={{fontWeight:700, color:"black"}}>{checkOutDay}</span>: "Add Dates"}</p>
                                 {activeOverlay === "check-out" && (
-                                    <div className="small-overlay" ref={checkOutRef}>
-                                        <p>This is the <strong>Check-Out</strong> overlay</p>
+                                    <div className="small-overlay" style={{height:"auto"}} ref={checkOutRef}>
+                                    <input
+                                        type="date"
+                                        placeholder="Enter Check-out Date"
+                                        name="check-out"
+                                        className="input-date"
+                                        onChange={(e)=> setCheckOutDate(e.target.value)}
+                                    />
                                     </div>
                                 )}
                             </div>
                             <div className="child who" onClick={() => handleOverlay("who")}> 
-                                <p><span>who</span><br />Add Guests</p>
-                                <div className="search">
+                            <p>
+                                <span>who</span><br />
+                                {Object.values(guests).reduce((total, num) => total + num, 0) > 0
+                                    ? <span style={{fontWeight:700, color:"black"}}> {Object.values(guests).reduce((total, num) => total + num, 0)} guests</span>
+                                    : "Add Guests"}
+                                </p>
+                                <div className="search" onClick={handleSearch}>
                                     <i className="fa-solid fa-magnifying-glass"></i>
                                     <p>Search</p>
                                 </div>
                                 {activeOverlay === "who" && (
-                                    <div className="small-overlay" ref={whoRef}>
-                                        <p>This is the <strong>WHO</strong> overlay</p>
+                                    <div className="small-overlay" style={{height:"auto", overflow:"auto"}} ref={whoRef}>
+                                        <GuestSelector guests={guests} setGuests={setGuests} />
                                     </div>
                                 )}
                             </div>
@@ -187,7 +181,7 @@ const handleLogout = () => {
                     </div>
                     <div className="login">
                         <p>Become a host</p>
-                        <p className="user" style={{ backgroundColor: "gainsboro", color: "black" }}>
+                        <p className="user" style={{ backgroundColor: "black", color: "gainsboro", fontWeight: 400}}>
                             {isLoggedIn && typeof userFirstName === "string" && userFirstName.length > 0 ? (
                                 userFirstName.charAt(0).toUpperCase()
                             ) : (

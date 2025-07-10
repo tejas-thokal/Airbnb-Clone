@@ -2,8 +2,13 @@ import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./PropertyinDetails.css";
 import WishlistModel from "./WishlistModel";
+import BookingCard from "./BookingCard";
+
 
 export default function PropertyinDetails() {
+  const filters = JSON.parse(localStorage.getItem("bookingFilters")) || {};
+  const { checkInDate, checkOutDate, guests } = filters;
+
   const { state } = useLocation();
   const { title, imgUrl, imgUrl2, imgUrl3, imgUrl4, imgUrl5, id } = state || {};
 
@@ -109,6 +114,16 @@ export default function PropertyinDetails() {
           <img className="right-round-Edge-bottom" src={imgUrl5} alt={title} />
         </div>
       </div>
+
+      <div className="booking-section">
+      <BookingCard
+        price={state.price}
+        checkInDate={checkInDate}
+        checkOutDate={checkOutDate}
+        guests={guests}
+      />
+      </div>
+
 
       {/* Modal render */}
       {showModal && (
