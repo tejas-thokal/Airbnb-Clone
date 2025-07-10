@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
-import "./Host.css";
+import "./host.css";
 
 const HostDetail = ({ flat }) => {
     const { state } = useLocation();
