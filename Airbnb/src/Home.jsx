@@ -4,7 +4,7 @@ import Mumbai from "./Mumbai";
 import Footer from "./Footer";
 import MainContainer from "./MainContainer";
 import React, { useState } from "react";
-import LoginModel from "./loginModel";
+import LoginModel from "./LoginModel";
 import SignupModal from "./SignupModel"; // ⬅️ Import this too if needed
 
 export default function Home({user, setUser}) {
